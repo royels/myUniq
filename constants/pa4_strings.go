@@ -21,7 +21,18 @@ const (
 	STR_LONG_OPT_COUNT       = "count"
 	STR_LONG_OPT_SUMMARY     = "summary"
 	STR_LONG_OPT_UNIQUE      = "unique"
-
+	/*
+	 * Command line flags (most correspond to options, but some set outputMode)
+	 */
+	FLAG_DUP_ONLY    = "d"
+	FLAG_DUP_ALL     = "D"
+	FLAG_HELP        = "h"
+	FLAG_IGNORE_CASE = "i"
+	FLAG_SORT_OUTPUT = "s"
+	FLAG_SORT_INPUT  = "S"
+	FLAG_COUNT       = "c"
+	FLAG_SUMMARY     = "x"
+	FLAG_UNIQUE      = "u"
 	/*
 	 * Usage strings
 	 */

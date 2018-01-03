@@ -18,18 +18,7 @@ const (
 	OPT_HELP        = 0x10
 	OPT_SUMMARY     = 0x20
 
-	/*
-	 * Command line flags (most correspond to options, but some set outputMode)
-	 */
-	FLAG_DUP_ONLY    = 'd'
-	FLAG_DUP_ALL     = 'D'
-	FLAG_HELP        = 'h'
-	FLAG_IGNORE_CASE = 'i'
-	FLAG_SORT_OUTPUT = 's'
-	FLAG_SORT_INPUT  = 'S'
-	FLAG_COUNT       = 'c'
-	FLAG_SUMMARY     = 'x'
-	FLAG_UNIQUE      = 'u'
+
 
 	/*
 	 * Arg string for getopt
@@ -94,6 +83,7 @@ type ErrorInfo struct {
 	errorCode int
 	errorMsg  string
 }
+
 
 /* Used to keep track of each group of successive, duplicate lines */
 type Uniq struct {

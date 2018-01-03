@@ -14,9 +14,6 @@ func Usage (w io.Writer, usageMode constants.UsageMode, programName string) {
   } else {
   fmt.Fprintf(w, constants.STR_USAGE_LONG, programName);
   }
-
-
-
 }
 
 
