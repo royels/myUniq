@@ -72,73 +72,36 @@ const (
  */
 /* Stores information parsed from command line */
 type ArgInfo struct {
-	options    int
-	outputMode OutputMode
-	infile     string
-	outfile    string
+	Options    int
+	OutputMode OutputMode
+	Infile     string
+	Outfile    string
 }
 
 /* Used to pass error code and message */
 type ErrorInfo struct {
-	errorCode int
-	errorMsg  string
+	ErrorCode ErrorCode
+	ErrorMsg  string
 }
 
 
 /* Used to keep track of each group of successive, duplicate lines */
 type Uniq struct {
-	count int
-	line  string
-	dups  string /* To hold duplicate lines for -D option */
+	Count int
+	Line  string
+	Dups  []string /* To hold duplicate lines for -D option */
 }
 
 /* Typedef this data structure so we can easily modify implementation later. */
 
 /* Stores information about array of uniq_t for whole file */
 type UniqInfo struct {
-	uniqPtr      Uniq
-	numOfEntries int
+	UniqPtr      []Uniq
+	NumOfEntries int
 }
 
 /* Stores information about array of pointers to lines of input file */
 type ParsedInputInfo struct {
-	parsedInput  string
-	numOfEntries int
+	ParsedInput  []string
+	NumOfEntries int
 }
-
-///* Function Prototypes */
-//int compareCount(const void *p1, const void *p2);
-//
-//int compareLine(const void *p1, const void *p2);
-//
-//
-//type pa4Vanilla interface {
-//    findUniq(
-//        ParsedInputInfo,
-//        ArgInfo,
-//        UniqInfo,
-//        ErrorInfo) int
-//    parseArgs(int, ArgInfo,
-//        ErrorInfo)
-//    parseInputStream(
-//            FILE *stream,
-//            ArgInfo,
-//        struct parsedInputInfo *parsedInputInfoPtr,
-//        struct errorInfo *errorInfoPtr
-//        );
-//            void printErrors(const struct errorInfo *errorInfoPtr, const char *progName);
-//            void printResults(
-//            FILE *outFile,
-//            const struct argInfo *argInfoPtr,
-//            const struct uniqInfo *uniqInfoPtr
-//        );
-//            void runUniq(const struct argInfo *argInfoPtr, struct errorInfo *errorInfoPtr);
-//            int sortInputCompare (const void *p1, const void *p2);
-//            void setErrorInfo(
-//        struct errorInfo *errorInfoPtr,
-//            enum errorCode e,
-//            const char *errorMsg
-//        );
-//            int strIgnoreCaseCmp(const char *s1, const char *s2, unsigned int n);
-//            void usage(FILE *stream, enum usageMode u, const char *progName);
-//        }

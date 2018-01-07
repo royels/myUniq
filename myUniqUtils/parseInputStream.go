@@ -1,5 +1,5 @@
 /*
- * Filename: parseInputStream.c 
+ * Filename: parseInputStream.c
  * Author: Rohan Yelsangikar
  * Userid: cs30xkr
  * Description: C routine to get information out of the user
@@ -12,7 +12,7 @@
  * Function prototype:
  *  int parseInputStream( FILE * stream,
  *  const struct argInfo * argInfoPtr,
- *  struct parsedInputInfo * parsedInputInfoPtr, 
+ *  struct parsedInputInfo * parsedInputInfoPtr,
  *  struct errorInfo * errorInfoPtr )
  * Description:  gets values out of the user
  * Parameters:
@@ -21,68 +21,29 @@
  *      arg3: the struct parsedInputPtr to be populated
  *      arg4: the struct errorInfo to be populated if error.
  * Error conditions: if realloc/calloc fails.
- * Return Value: zero if success, nonzero otherwise 
+ * Return Value: zero if success, nonzero otherwise
  */
 package myuniq
 
 import (
-  "io"
-  "fmt"
-  "pa4/constants"
+	"io/ioutil"
+	"os"
+	"pa4/constants"
+	"sort"
+	"strings"
 )
 
-func ParseInputStream (w io.Writer, info * constants.ArgInfo, inputInfo* constants.ParsedInputInfo, errorInfo * constants.ErrorInfo) int {
+func ParseInputStream(file *os.File, info *constants.ArgInfo, inputInfo *constants.ParsedInputInfo, errorInfo *constants.ErrorInfo) int {
+	content, err := ioutil.ReadFile(file.Name())
+	if err != nil {
+		return 1
+	}
+	lines := strings.Split(string(content), "\n")
 
-
+	if info.Options&constants.OPT_SORT_INPUT != 0 {
+		sort.Strings(lines)
+	}
+	inputInfo.ParsedInput = lines
+	inputInfo.NumOfEntries = len(lines)
+	return 0
 }
-
-
-//int parseInputStream( FILE * stream,
-//const struct argInfo * argInfoPtr,
-//struct parsedInputInfo * parsedInputInfoPtr, struct errorInfo * errorInfoPtr ){
-//
-//  char **storage;
-//  char **storageTemp = malloc(sizeof(char*));
-//  if(storageTemp == NULL) {
-//    setErrorInfo(errorInfoPtr, ErrErrno_M, STR_ERR_PARSE_INPUT);
-//    return 1;
-//  }
-//
-//  // copy over pointers with every realloc.
-//  char temp[BUFSIZ];
-//  int i = 0;
-//  while(fgets(temp, BUFSIZ, stream) != NULL) {
-//    char *charTemp  = calloc(strlen(temp) + 1, sizeof(char));
-//  if(charTemp == NULL) {
-//    setErrorInfo(errorInfoPtr, ErrErrno_M, STR_ERR_PARSE_INPUT);
-//    return 1;
-//  }
-//  (void)strncpy(charTemp, temp, strlen(temp)+1);
-//  storage = (char **) realloc(storageTemp,
-//  (i+1) * sizeof(char*));
-//  if(storage == NULL) {
-//    int j = 0;
-//    for(j = 0; j < i; j++) {
-//        free(storageTemp[j]);
-//    }
-//    free(storage);
-//    setErrorInfo(errorInfoPtr, ErrErrno_M, STR_ERR_PARSE_INPUT);
-//    return 1;
-//  }
-//  storage[i] = charTemp;
-//  storageTemp = storage;
-//  i++;
-// }
-//
-//  // sort if sort_input flag present
-//  if((argInfoPtr->options & OPT_SORT_INPUT) != 0) {
-//    qsort(storageTemp, i, sizeof(char*), sortInputCompare);
-//  }
-//
-//
-// parsedInputInfoPtr->parsedInputPtr = storageTemp;
-// parsedInputInfoPtr->numOfEntries = i;
-//
-//
-// return 0;
-//}

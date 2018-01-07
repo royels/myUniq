@@ -1,21 +1,15 @@
 package main
 
-import "fmt"
 import (
-	"pa4/myUniqUtils"
-	"pa4/constants"
 	"os"
-	"go/constant"
+	"pa4/constants"
+	"pa4/myUniqUtils"
 )
 
 func main() {
-	argInfo := new(constants.ArgInfo)
-	errorInfo := new(constants.ErrorInfo)
-	myuniq.ParseArgs(argInfo, errorInfo)
-	if(errorInfo.errorCode == constants.ErrNone) {
-		//runUniq
-	}
-	if(errorInfo.errorCode != constants.ErrNone) {
-		myuniq.PrintErrors(errorInfo, os.Args[0])
-	}
+	info := constants.ArgInfo{}
+	errorInfo := constants.ErrorInfo{}
+	myuniq.ParseArgs(&info, &errorInfo)
+	myuniq.RunUniq(&info, &errorInfo)
+	myuniq.PrintErrors(&errorInfo, os.Args[0])
 }

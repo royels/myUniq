@@ -1,21 +1,21 @@
 /*
- * Filename: setErrorInfo.c
+ * Filename: SetErrorInfo.c
  * Description: Sets members of sturct errorInfo.
  */
 
- package myuniq
+package myuniq
 
 import "pa4/constants"
 
-func setErrorInfo(errorInfo * constants.ErrorInfo, errorCode constants.ErrorCode, errorMsg string) {
+func SetErrorInfo(errorInfo *constants.ErrorInfo, errorCode constants.ErrorCode, errorMsg string) {
 
-  /* Set error code */
-  errorInfo.errorCode = errorCode;
+	/* Set error code */
+	errorInfo.ErrorCode = errorCode
 
-  /* Set message if not null */
-  if(errorMsg != "") {
-    errorInfo.errorMsg = errorMsg;
-  } else {
-    errorInfo.errorMsg = "";
-  }
+	/* Set message if not null */
+	if errorMsg != "" {
+		errorInfo.ErrorMsg = errorMsg
+	} else {
+		errorInfo.ErrorMsg = ""
+	}
 }
