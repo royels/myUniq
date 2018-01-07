@@ -7,7 +7,7 @@ import (
 	"os"
 )
 
-func ParseArgs(info *constants.ArgInfo, errorInfo *constants.ErrorInfo) {
+func ParseArgs(info *constants.ArgInfo, errorInfo *constants.ErrorInfo) int {
 	flag.Usage = func() {
 		fmt.Fprintf(os.Stderr, constants.STR_USAGE_LONG)
 	}
@@ -68,25 +68,33 @@ func ParseArgs(info *constants.ArgInfo, errorInfo *constants.ErrorInfo) {
 		info.OutputMode = constants.Unique
 		uFlag = 1
 	}
-	if optind < len(os.Args) {
-		info.Infile = os.Args[optind]
+
+	if optind < len(flag.Args()) {
+		info.Infile = flag.Arg(optind)
 		optind++
-		if optind < len(os.Args) {
-			info.Outfile = os.Args[optind]
+		if optind < len(flag.Args()) {
+			info.Outfile = flag.Arg(optind)
 			optind++
 		}
 	}
+	//fmt.Println("The outfile is: " + info.Outfile)
+	//fmt.Println("The infile is: " + info.Infile)
 	extraFlag := 0
-	if optind < len(os.Args) {
+	if optind < len(flag.Args()) {
 		extraFlag = 1
 	}
 	if (uFlag == 1 && dFlag == 1) ||
 		(uFlag == 1 && DFlag == 1) ||
 		(dFlag == 1 && DFlag == 1) {
-			return
 		SetErrorInfo(errorInfo, constants.ErrMutualExcl, "")
+		return 1
 	} else if extraFlag == 1 {
-		return
-		//SetErrorInfo(errorInfo, constants.ErrExtraArgs_M, os.Args[optind])
+		SetErrorInfo(errorInfo, constants.ErrExtraArgs_M, os.Args[optind])
+		return 1
+
+	} else if (info.Options & constants.OPT_HELP) != 0 {
+		fmt.Fprintf(os.Stdout, constants.STR_USAGE_LONG)
+		return 1
 	}
+	return 0
 }

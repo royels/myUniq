@@ -63,7 +63,7 @@ const (
 		/*
 		 * String for printing results
 		 */
-	STR_PRINT_LINE    = "%s"
+	STR_PRINT_LINE    = "%s\n"
 	STR_PRINT_COUNT   = "%4d "
 	STR_PRINT_SUMMARY = "\n=== Results ===\n" +
 		"Entries:\n" +
@@ -73,10 +73,7 @@ const (
 		"Lines:\n" +
 		"\tDuplicates: %d\n" +
 		"\tUnique:     %d\n" +
-		"\tTotal:      %d\n" +
-		"\nGenerated at: %s\n"
-
-	STR_TIME_FORMATER = "%T"
+		"\tTotal:      %d\n"
 
 	/*
 	 * Error Strings

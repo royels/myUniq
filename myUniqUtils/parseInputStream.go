@@ -26,6 +26,7 @@
 package myuniq
 
 import (
+	"fmt"
 	"io/ioutil"
 	"os"
 	"pa4/constants"
@@ -34,16 +35,23 @@ import (
 )
 
 func ParseInputStream(file *os.File, info *constants.ArgInfo, inputInfo *constants.ParsedInputInfo, errorInfo *constants.ErrorInfo) int {
+	//fmt.Println("enterign readfile")
 	content, err := ioutil.ReadFile(file.Name())
+	//fmt.Println("leaving readfile")
 	if err != nil {
+		fmt.Println("There was an error")
 		return 1
 	}
 	lines := strings.Split(string(content), "\n")
-
-	if info.Options&constants.OPT_SORT_INPUT != 0 {
+	//fmt.Print("The lines are ")
+	//fmt.Println(lines)
+	if (info.Options & constants.OPT_SORT_INPUT) != 0 {
 		sort.Strings(lines)
 	}
+	//fmt.Println("Reached inputInfo parsing")
 	inputInfo.ParsedInput = lines
+	//fmt.Print("The inputinfo is " )
+	//fmt.Println(inputInfo.ParsedInput)
 	inputInfo.NumOfEntries = len(lines)
 	return 0
 }

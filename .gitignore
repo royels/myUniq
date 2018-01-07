@@ -12,3 +12,7 @@
 .idea/
 ./myUniq
 myUniq/ref
+myUniq/file.txt
+myUniq/uniq.empty
+myUniq/uniq.test2
+myUniq/uniq.test3

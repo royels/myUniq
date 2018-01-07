@@ -1,6 +1,8 @@
 package myuniq
 
-import "pa4/constants"
+import (
+	"pa4/constants"
+)
 
 /*
  * Filename: findUniq.c
@@ -29,11 +31,13 @@ import "pa4/constants"
  */
 
 func findUniq(info *constants.ParsedInputInfo, argInfo *constants.ArgInfo, uniqInfo *constants.UniqInfo, errorInfo *constants.ErrorInfo) int {
-	i := 0
 	uniq_string_list := []string{}
 	uniq_obj_list := []constants.Uniq{}
 	uniq_vals := make(map[string]constants.Uniq)
-	for j := 0; j < info.NumOfEntries; j++ {
+	//fmt.Print("parsedInput inside findUniq is: ")
+	//fmt.Println(info.ParsedInput)
+	for i := 0; i < info.NumOfEntries; i++ {
+		//fmt.Println("parsedInput: " + info.ParsedInput[i])
 		val, ok := uniq_vals[info.ParsedInput[i]]
 		if !ok {
 			uniq := constants.Uniq{Count: 1, Line: info.ParsedInput[i], Dups: []string{}}
@@ -45,9 +49,11 @@ func findUniq(info *constants.ParsedInputInfo, argInfo *constants.ArgInfo, uniqI
 		}
 	}
 	for k := 0; k < len(uniq_string_list); k++ {
+		//fmt.Println(uniq_string_list[k])
 		uniq_obj_list = append(uniq_obj_list, uniq_vals[uniq_string_list[k]])
 	}
 	uniqInfo.UniqPtr = uniq_obj_list // should be the ordered list of unique
+	//fmt.Println(uniq_obj_list)
 	uniqInfo.NumOfEntries = len(uniq_obj_list)
 	return 0
 
